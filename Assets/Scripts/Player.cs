@@ -257,7 +257,7 @@ public class Player : MonoBehaviour
     {
         timeSinceDash += Time.deltaTime;
 
-        if(dashPressed && timeSinceDash >= dashCooldown)
+        if(dashPressed && timeSinceDash >= dashCooldown && jumpCounter > 0)
         {
             _ = Dash();
             dashPressed = false;
@@ -274,6 +274,8 @@ public class Player : MonoBehaviour
         var originalGravity = rb.gravityScale;
 
         float elapsed = 0f;
+
+        if(jumpCounter > 0 && !isGrounded) jumpCounter -= 1;
 
         rb.linearVelocity = Vector2.zero;
 
@@ -416,6 +418,8 @@ public class Player : MonoBehaviour
         CancelSmash();
 
         isDodging = true;
+
+        if(jumpCounter > 0 && !isGrounded) jumpCounter -= 1;
 
         float elapsed = 0f;
 
