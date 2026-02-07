@@ -16,6 +16,7 @@ using System;
 using UnityEditor.VersionControl;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
+using Unity.VisualScripting.FullSerializer;
 
 public class Player : MonoBehaviour
 {
@@ -60,6 +61,7 @@ public class Player : MonoBehaviour
     public float dashProportions;
     public float dashFallMultiplier;
     public float dashAcceleration;
+    public float dashDirYMod;
 
     [Header("Dodge")]
     public float dodgeSpeed;
@@ -255,6 +257,12 @@ public class Player : MonoBehaviour
 
     private void HandleDash()
     {
+        if(jumpCounter <= 0)
+        { 
+            dashPressed = false; 
+            return;
+        }
+
         timeSinceDash += Time.deltaTime;
 
         if(dashPressed && timeSinceDash >= dashCooldown && jumpCounter > 0)
@@ -279,13 +287,22 @@ public class Player : MonoBehaviour
 
         rb.linearVelocity = Vector2.zero;
 
+        Vector2 inputDir = moveInput;
+        if(inputDir == Vector2.zero) inputDir = new Vector2(facingDirection, 0);
+        if(Mathf.Abs(inputDir.x) < 0.1f) inputDir.x = facingDirection;
+        inputDir.Normalize();
+        Vector2 dashDir = inputDir;
+        dashDir.y *= dashDirYMod;
+        dashDir.Normalize();
+
         while(elapsed < dashDuration)
         {
-            float targetSpeed = dashSpeed * facingDirection;
+            //float targetSpeed = dashSpeed * dashDir;
+            Vector2 targetVel = dashDir * dashSpeed;
 
             float maxDelta = dashSpeed / dashDuration * Time.fixedDeltaTime * dashAcceleration;
 
-            rb.linearVelocity = new Vector2(Mathf.MoveTowards(rb.linearVelocity.x, targetSpeed, maxDelta), rb.linearVelocity.y);
+            rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, targetVel, maxDelta);
 
             float segment1Duration = dashDuration * dashProportions;
             float segment2Duration = dashDuration - segment1Duration;

@@ -1548,6 +1548,7 @@ MonoBehaviour:
   dashProportions: 0.5
   dashFallMultiplier: 2
   dashAcceleration: 20
+  dashDirYMod: 0.6
   dodgeSpeed: 15
   dodgePressed: 0
   dodgeCooldown: 0.45
@@ -1574,8 +1575,8 @@ MonoBehaviour:
   ledgeForwardCheck: 0
   airCheckSize: {x: 0.3, y: 0.3}
   airCheckOffset: {x: 0, y: 0}
-  backCheckSize: {x: 0.2, y: 1}
-  backCheckOffset: {x: -1, y: 0}
+  backCheckSize: {x: 1, y: 1}
+  backCheckOffset: {x: -0.8, y: 0}
   ledgeUpCheck: 0.8
   ledgeDownCheck: 1
   ledgeDetected: 0
