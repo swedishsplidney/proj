@@ -288,7 +288,7 @@ public class Player : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
 
         Vector2 inputDir = moveInput;
-        if(inputDir == Vector2.zero) inputDir = new Vector2(facingDirection, 0);
+        if(inputDir == Vector2.zero || isGrounded) inputDir = new Vector2(facingDirection, 0);
         if(Mathf.Abs(inputDir.x) < 0.1f) inputDir.x = facingDirection;
         inputDir.Normalize();
         Vector2 dashDir = inputDir;

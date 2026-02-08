@@ -1548,7 +1548,7 @@ MonoBehaviour:
   dashProportions: 0.5
   dashFallMultiplier: 2
   dashAcceleration: 20
-  dashDirYMod: 0.6
+  dashDirYMod: 0.5
   dodgeSpeed: 15
   dodgePressed: 0
   dodgeCooldown: 0.45
@@ -1581,7 +1581,7 @@ MonoBehaviour:
   ledgeDownCheck: 1
   ledgeDetected: 0
   offset1: {x: -0.52, y: -1}
-  offset2: {x: 0.4, y: 1}
+  offset2: {x: 0.5, y: 1}
   mantleAnimTime: 0.5
   mantleCooldown: 0
   oneWayLayer:
